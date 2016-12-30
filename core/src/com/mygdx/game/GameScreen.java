@@ -6,8 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.entities.FloorEntiy;
 import com.mygdx.game.entities.PlayerEntity;
+import com.mygdx.game.entities.SkipeEntity;
+
+import java.util.ArrayList;
 
 /**
  * Created by luissancar on 30/12/16.
@@ -17,6 +22,8 @@ public class GameScreen extends BaseScreen{
     private Stage stage;
     private World world;
     private PlayerEntity player;
+    private List<com.mygdx.game.entities.FloorEntiy> floorlist=new ArrayList<com.mygdx.game.entities.FloorEntiy>();
+    private List<SkipeEntity> spikelist=new ArrayList<SkipeEntity>();
 
     public GameScreen(MyGdxGame game) {
         super(game);
@@ -28,6 +35,9 @@ public class GameScreen extends BaseScreen{
     @Override
     public void show() {
         Texture playerTexture=game.getManager().get("player.png");
+        Texture floorTexture=game.getManager().get("floor.png");
+        Texture overfloorTexture=game.getManager().get("overfloor.png");
+        Texture spikeTexture=game.getManager().get("spike.png");
         player=new PlayerEntity(world,playerTexture,new Vector2(1,2));
         stage.addActor(player);
     }
