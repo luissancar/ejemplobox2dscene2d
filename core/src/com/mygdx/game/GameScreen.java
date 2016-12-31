@@ -22,8 +22,9 @@ public class GameScreen extends BaseScreen{
     private Stage stage;
     private World world;
     private PlayerEntity player;
-    private List<com.mygdx.game.entities.FloorEntiy> floorlist=new ArrayList<com.mygdx.game.entities.FloorEntiy>();
-    private List<SkipeEntity> spikelist=new ArrayList<SkipeEntity>();
+    private java.util.List<FloorEntiy> floorlist= new ArrayList<FloorEntiy>();
+
+    private java.util.List<SkipeEntity> spikelist=new ArrayList<SkipeEntity>();
 
     public GameScreen(MyGdxGame game) {
         super(game);
@@ -35,17 +36,35 @@ public class GameScreen extends BaseScreen{
     @Override
     public void show() {
         Texture playerTexture=game.getManager().get("player.png");
-        Texture floorTexture=game.getManager().get("floor.png");
         Texture overfloorTexture=game.getManager().get("overfloor.png");
+        Texture floorTexture=game.getManager().get("floor.png");
         Texture spikeTexture=game.getManager().get("spike.png");
         player=new PlayerEntity(world,playerTexture,new Vector2(1,2));
+        floorlist.add(new FloorEntiy(world,floorTexture,overfloorTexture,0,1000,1));
+        spikelist.add(new SkipeEntity(world,spikeTexture,6,1));
+
         stage.addActor(player);
+        for (FloorEntiy floor: floorlist){
+            stage.addActor(floor);
+        }
+        for (SkipeEntity spike: spikelist){
+            stage.addActor(spike);
+        }
     }
 
     @Override
     public void hide() {
         player.detach();
         player.remove();
+
+        for (FloorEntiy floor: floorlist){
+            floor.detach();
+            floor.remove();
+        }
+        for (SkipeEntity spike: spikelist){
+            spike.detach();
+            spike.remove();
+        }
     }
 
     @Override
