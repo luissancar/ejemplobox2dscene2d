@@ -36,10 +36,10 @@ public class GameScreen extends BaseScreen{
     @Override
     public void show() {
         Texture playerTexture=game.getManager().get("player.png");
-        Texture overfloorTexture=game.getManager().get("overfloor.png");
+        Texture overfloorTexture=game.getManager().get("overfloor1.png");
         Texture floorTexture=game.getManager().get("floor.png");
         Texture spikeTexture=game.getManager().get("spike.png");
-        player=new PlayerEntity(world,playerTexture,new Vector2(1,2));
+        player=new PlayerEntity(world,playerTexture,new Vector2(1.5f,1.5f));
         floorlist.add(new FloorEntiy(world,floorTexture,overfloorTexture,0,1000,1));
         spikelist.add(new SkipeEntity(world,spikeTexture,6,1));
 

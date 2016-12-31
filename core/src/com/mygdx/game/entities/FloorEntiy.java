@@ -34,19 +34,20 @@ public class FloorEntiy extends Actor{
         PolygonShape box=new PolygonShape();
         box.setAsBox(width/2,0.5f);
         fixture=body.createFixture(box,1);
+        fixture.setUserData("floor");
         box.dispose();
 
-        setSize(PIXELS_IN_METER,PIXELS_IN_METER);
+        setSize(width*PIXELS_IN_METER,PIXELS_IN_METER);
         setPosition((x-width/2)*PIXELS_IN_METER,(y-1)*PIXELS_IN_METER);
 
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        // box2d toma como refeencia el centro del cuerpo por es -0.5
-        setPosition((body.getPosition().x-0.5f)*PIXELS_IN_METER,
-                (body.getPosition().y-0.5f)*PIXELS_IN_METER);
-        batch.draw(floor,getX(),getY(),getWidth(),getHeight());
+
+
+        batch.draw(floor, getX(), getY(), getWidth(), getHeight());
+        batch.draw(overfloor, getX(), getY() + 0.9f * getHeight(), getWidth(), 0.1f * getHeight());
 
     }
 
