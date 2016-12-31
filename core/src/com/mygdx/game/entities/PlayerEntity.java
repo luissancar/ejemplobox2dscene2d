@@ -1,5 +1,6 @@
 package com.mygdx.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -21,7 +22,7 @@ public class PlayerEntity extends Actor{
     private World world;
     private Body body;
     private Fixture fixture;
-    private boolean alive=true, jumping=false;
+    private boolean alive=true, jumping=false, mustJump=false;
 
     public PlayerEntity(World word, Texture texture, Vector2 position){
         this.world=word;
@@ -35,10 +36,43 @@ public class PlayerEntity extends Actor{
         PolygonShape box=new PolygonShape();
         box.setAsBox(0.5f,0.5f);
         fixture=body.createFixture(box,3);
+        fixture.setUserData("player");
         box.dispose();
 
         setSize(PIXELS_IN_METER,PIXELS_IN_METER);
 
+    }
+
+    @Override
+    public void act(float delta) {
+        // saltar si se toca pantalla
+        if (Gdx.input.justTouched() || mustJump) {
+            setMustJump(false);
+            jump();
+        }
+        if (isAlive()) {
+            float speedY=body.getLinearVelocity().y;
+            body.setLinearVelocity(8,speedY);
+        }
+
+        // Si está vivo avanzar
+    }
+
+    public  void jump(){
+        if (!jumping && alive) {
+            jumping=true;
+            Vector2 position = body.getPosition();
+            body.applyLinearImpulse(0, 20, position.x, position.y, true);
+        }
+
+    }
+
+    public void setMustJump(boolean mustJump) {
+        this.mustJump = mustJump;
+    }
+
+    public boolean isMustJump() {
+        return mustJump;
     }
 
     @Override
@@ -55,9 +89,21 @@ public class PlayerEntity extends Actor{
         world.destroyBody(body);
     }
 
-    /**
-     * Created by luissancar on 30/12/16.
-     */
+    public void setJumping(boolean jumping) {
+        this.jumping = jumping;
+    }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
 
     public static class FloorEntiy extends Actor{
         private Texture floor, overfloor;

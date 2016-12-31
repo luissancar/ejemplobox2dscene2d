@@ -39,6 +39,8 @@ public class SkipeEntity extends Actor{
         box.set(vertices);
 
         fixture=body.createFixture(box,1);
+
+        fixture.setUserData("spike");
         box.dispose();
 
         setSize(PIXELS_IN_METER,PIXELS_IN_METER);
