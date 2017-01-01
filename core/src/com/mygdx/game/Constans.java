@@ -8,5 +8,6 @@ public class Constans {
     //para convertir de metros a pixels
     //box2d trabaja en metros
     //scene2 trabaja en pixels
-    public static final float PIXELS_IN_METER=90f;
+    public static final float PIXELS_IN_METER=45f;
+    public static final float IMPULSE_JUMP=20;
 }

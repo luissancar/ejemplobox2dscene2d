@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.Constans;
 
 import static com.mygdx.game.Constans.PIXELS_IN_METER;
 
@@ -52,7 +53,10 @@ public class PlayerEntity extends Actor{
         }
         if (isAlive()) {
             float speedY=body.getLinearVelocity().y;
-            body.setLinearVelocity(8,speedY);
+            body.setLinearVelocity(7,speedY);
+        }
+        if (jumping) {
+            body.applyForceToCenter(0,Constans.IMPULSE_JUMP*-1.1f,true); // para que caiga más rápido
         }
 
         // Si está vivo avanzar
@@ -62,7 +66,7 @@ public class PlayerEntity extends Actor{
         if (!jumping && alive) {
             jumping=true;
             Vector2 position = body.getPosition();
-            body.applyLinearImpulse(0, 20, position.x, position.y, true);
+            body.applyLinearImpulse(0, Constans.IMPULSE_JUMP, position.x, position.y, true);
         }
 
     }

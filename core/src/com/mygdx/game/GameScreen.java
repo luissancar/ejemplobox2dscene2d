@@ -82,6 +82,7 @@ public class GameScreen extends BaseScreen{
         Texture spikeTexture=game.getManager().get("spike.png");
         player=new PlayerEntity(world,playerTexture,new Vector2(1.5f,1.5f));
         floorlist.add(new FloorEntiy(world,floorTexture,overfloorTexture,0,1000,1));
+        floorlist.add(new FloorEntiy(world,floorTexture,overfloorTexture,12,10,2));  //añadimos escalones
         spikelist.add(new SkipeEntity(world,spikeTexture,6,1));
 
         stage.addActor(player);

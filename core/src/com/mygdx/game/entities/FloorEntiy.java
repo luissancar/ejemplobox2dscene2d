@@ -19,8 +19,8 @@ import static com.mygdx.game.Constans.PIXELS_IN_METER;
 public class FloorEntiy extends Actor{
     private Texture floor, overfloor;
     private World world;
-    private Body body;
-    private Fixture fixture;
+    private Body body, leftBody;
+    private Fixture fixture, leftFixture;
 
     public FloorEntiy(World word, Texture floor,Texture overfloor, float x, float width, float y){
         this.world=word;
@@ -37,8 +37,21 @@ public class FloorEntiy extends Actor{
         fixture.setUserData("floor");
         box.dispose();
 
+
+
+        BodyDef leftDef=new BodyDef();   // en el caso de chocar con un escalón uere
+        leftDef.position.set(x,y-0.5f);
+        leftBody=word.createBody(leftDef);
+
+        PolygonShape leftBox=new PolygonShape();
+        leftBox.setAsBox(0.02f,0.45f);
+        leftFixture=leftBody.createFixture(leftBox,1);
+        leftFixture.setUserData("spike");  //le asignamos spike, para morir
+        leftBox.dispose();
+
+
         setSize(width*PIXELS_IN_METER,PIXELS_IN_METER);
-        setPosition((x-width/2)*PIXELS_IN_METER,(y-1)*PIXELS_IN_METER);
+        setPosition(x*PIXELS_IN_METER,(y-1)*PIXELS_IN_METER);
 
     }
 
